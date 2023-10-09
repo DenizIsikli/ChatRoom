@@ -1,6 +1,5 @@
 #include "Common.h"
 #include <iostream>
-#include <vector>
 #include <string>
 #include <thread>
 #include <WinSock2.h>
@@ -26,10 +25,6 @@ void CtrlHandler() {
     closesocket(client_socket);
     WSACleanup();
     exit(0);
-}
-
-string color(int code) {
-    return colors[code%NUM_COLORS];
 }
 
 int eraseText(int cnt) {
@@ -64,12 +59,12 @@ void recv_message() {
     }
 }
 
-int main() {
+int run_client() {
     if ((client_socket=socket(AF_INET, SOCK_STREAM, 0)) == -1) {
         handle_error("client socket creation failed");
     }
 
-    struct sockaddr_in client;
+    struct sockaddr_in client{};
     client.sin_family = AF_INET;
     client.sin_port = htons(54000);
     client.sin_addr.s_addr = INADDR_ANY;

@@ -20,9 +20,7 @@ void handle_error(const char* message) {
     exit(0);
 }
 
-string color(int code) {
-    return colors[code % NUM_COLORS];
-}
+
 
 void set_name(int id, char name[]) {
     for (auto &client_ : clients) {
@@ -82,7 +80,7 @@ void handle_client(SOCKET client_socket_, int id) {
     }
 }
 
-int main() {
+int run_server() {
     WSADATA wsaData;
     if (WSAStartup(MAKEWORD(2, 2), &wsaData) != 0) {
         handle_error("WSAStartup() failed");
