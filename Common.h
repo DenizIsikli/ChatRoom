@@ -9,17 +9,18 @@
 
 using namespace std;
 
-// Both files
-extern const string default_color;
-const string default_color = "\033[0m";
-string color(int code);
-string colors[]={"\033[31m", "\033[32m", "\033[33m", "\033[34m", "\033[35m", "\033[36m"};
-void handle_error(const char* message);
-
-// Server
 #define MAX_LEN 200
 #define NUM_COLORS 6
 
+// Both files
+extern const string default_color;
+const string default_color = "\033[0m";
+string colors[]={"\033[31m", "\033[32m", "\033[33m", "\033[34m", "\033[35m", "\033[36m"};
+string color(int code);
+string color(int code) { return colors[code % NUM_COLORS]; }
+void handle_error(const char* message);
+
+// Server
 struct terminal {
     int id;
     string name;
