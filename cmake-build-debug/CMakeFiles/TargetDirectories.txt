@@ -1,3 +1,0 @@
-C:/Users/deniz/CLionProjects/ChatRoom/cmake-build-debug/CMakeFiles/ChatRoom.dir
-C:/Users/deniz/CLionProjects/ChatRoom/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/deniz/CLionProjects/ChatRoom/cmake-build-debug/CMakeFiles/rebuild_cache.dir

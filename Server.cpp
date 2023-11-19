@@ -157,7 +157,3 @@ int run_server() {
     WSACleanup();
     return 0;
 }
-
-int main() {
-    return run_server();
-}

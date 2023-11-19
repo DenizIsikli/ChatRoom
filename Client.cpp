@@ -101,7 +101,3 @@ int run_client() {
     WSACleanup();
     return 0;
 }
-
-int main() {
-    return run_client();
-}
