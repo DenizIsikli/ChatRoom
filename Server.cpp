@@ -1,16 +1,44 @@
-#include "Common.h"
 #include <iostream>
 #include <vector>
 #include <string>
 #include <thread>
 #include <mutex>
+#include <random>
 #include <WinSock2.h>
 #pragma comment(lib, "ws2_32.lib")
 
 using namespace std;
 
+#define MAX_LEN 200
+#define NUM_COLORS 6
+
+void handle_error(const char* message);
+void set_name(int id, char name[]);
+void shared_print(string str);
+void broadcast_message(string message, int sender_id);
+void end_connection(int id);
+void handle_client(SOCKET client_socket_, int id);
+int run_server();
+
+struct terminal {
+    int id;
+    string name;
+    SOCKET socket;
+    thread th;
+};
+
+const vector<string> client_colors = {
+        "\033[31m",  // Red
+        "\033[32m",  // Green
+        "\033[33m",  // Yellow
+        "\033[34m",  // Blue
+        "\033[35m",  // Purple
+        "\033[36m"   // Cyan
+};
+
 vector<terminal> clients;
 int seed = 0;
+bool serverRunning = true;
 mutex cout_mtx, clients_mtx;
 
 void handle_error(const char* message) {
@@ -20,10 +48,8 @@ void handle_error(const char* message) {
     exit(0);
 }
 
-
-
 void set_name(int id, char name[]) {
-    for (auto &client_ : clients) {
+    for (auto& client_ : clients) {
         if (client_.id == id) {
             client_.name = name;
         }
@@ -39,7 +65,7 @@ void broadcast_message(string message, int sender_id) {
     char temp[MAX_LEN];
     strcpy_s(temp, message.c_str());
 
-    for (auto &client_ : clients) {
+    for (auto& client_ : clients) {
         if (client_.id != sender_id) {
             int sentBytes = send(client_.socket, temp, static_cast<int>(strlen(temp)), 0);
             if (sentBytes == SOCKET_ERROR) {
@@ -62,7 +88,13 @@ void handle_client(SOCKET client_socket_, int id) {
     char name[MAX_LEN];
     recv(client_socket_, name, MAX_LEN, 0);
     set_name(id, name);
-    shared_print(color(id) + name + " has joined the chat." + default_color);
+
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<int> color_dist(0,  client_colors.size() - 1);
+    string client_color = client_colors[color_dist(gen)];
+
+    shared_print(client_color + name + string(" has joined the chat.\n"));
 
     while (true) {
         char message[MAX_LEN];
@@ -70,13 +102,14 @@ void handle_client(SOCKET client_socket_, int id) {
         if (bytes_received <= 0) {
             return;
         }
+        message[bytes_received] = '\0'; // Null-terminate the message
         if (strcmp(message, "exit") == 0) {
-            shared_print(color(id) + name + " has left the chat." + default_color);
+            shared_print(client_color + name + string(" has left the chat.\n"));
             end_connection(id);
             return;
         }
 
-        broadcast_message(name + string(" : ") + message, id);
+        broadcast_message(client_color + name + string(" : ") + message, id);
     }
 }
 
@@ -104,27 +137,20 @@ int run_server() {
         handle_error("listen() failed");
     }
 
-    cout << colors[NUM_COLORS - 1] << "\n\t  ====== Welcome to the chat-room ======   " << endl << default_color;
-    cout << colors[NUM_COLORS - 1] << "\t  ======      Type 'exit' to quit     ======   " << endl << default_color;
+    cout << "\n\t  ====== Welcome to the chat-room ======\n";
 
     sockaddr_in client{};
     int client_len = sizeof(client);
 
-    SOCKET client_socket_ = accept(server_socket, (sockaddr*)&client, &client_len);
-    if (client_socket_ == INVALID_SOCKET) {
-        handle_error("accept() failed");
-    }
-
-    seed++;
-    thread thread(handle_client, client_socket_, seed);
-    lock_guard<mutex> guard(clients_mtx);
-    clients.push_back({seed, string("Anonymous"), client_socket_, (std::move(thread)) });
-
-    // range based for loop for clients-size()
-    for (auto &client_ : clients) {
-        if (client_.th.joinable()) {
-            client_.th.join();
+    while (serverRunning) {
+        SOCKET client_socket_ = accept(server_socket, (sockaddr*)&client, &client_len);
+        if (client_socket_ == INVALID_SOCKET) {
+            handle_error("Accept() failed");
         }
+
+        seed++;
+        thread(handle_client, client_socket_, seed).detach();
+        clients.push_back({seed, string("Anonymous"), client_socket_});
     }
 
     closesocket(server_socket);
@@ -132,3 +158,6 @@ int run_server() {
     return 0;
 }
 
+int main() {
+    return run_server();
+}
