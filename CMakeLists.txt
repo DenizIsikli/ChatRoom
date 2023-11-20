@@ -3,4 +3,5 @@ project(ChatRoom)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(ChatRoom main.cpp)
+set(Headers Server.h, Client.h)
+add_executable(ChatRoom ${PROJECT_BINARY_DIR} / main.cpp Server.cpp Client.cpp)

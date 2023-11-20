@@ -55,6 +55,18 @@ build CMakeFiles/ChatRoom.dir/main.cpp.obj: CXX_COMPILER__ChatRoom_Debug C$:/Use
   OBJECT_DIR = CMakeFiles\ChatRoom.dir
   OBJECT_FILE_DIR = CMakeFiles\ChatRoom.dir
 
+build CMakeFiles/ChatRoom.dir/Server.cpp.obj: CXX_COMPILER__ChatRoom_Debug C$:/Users/deniz/CLionProjects/ChatRoom/Server.cpp || cmake_object_order_depends_target_ChatRoom
+  DEP_FILE = CMakeFiles\ChatRoom.dir\Server.cpp.obj.d
+  FLAGS = -g -std=gnu++20
+  OBJECT_DIR = CMakeFiles\ChatRoom.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatRoom.dir
+
+build CMakeFiles/ChatRoom.dir/Client.cpp.obj: CXX_COMPILER__ChatRoom_Debug C$:/Users/deniz/CLionProjects/ChatRoom/Client.cpp || cmake_object_order_depends_target_ChatRoom
+  DEP_FILE = CMakeFiles\ChatRoom.dir\Client.cpp.obj.d
+  FLAGS = -g -std=gnu++20
+  OBJECT_DIR = CMakeFiles\ChatRoom.dir
+  OBJECT_FILE_DIR = CMakeFiles\ChatRoom.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target ChatRoom
@@ -63,7 +75,7 @@ build CMakeFiles/ChatRoom.dir/main.cpp.obj: CXX_COMPILER__ChatRoom_Debug C$:/Use
 #############################################
 # Link the executable ChatRoom.exe
 
-build ChatRoom.exe: CXX_EXECUTABLE_LINKER__ChatRoom_Debug CMakeFiles/ChatRoom.dir/main.cpp.obj
+build ChatRoom.exe: CXX_EXECUTABLE_LINKER__ChatRoom_Debug CMakeFiles/ChatRoom.dir/main.cpp.obj CMakeFiles/ChatRoom.dir/Server.cpp.obj CMakeFiles/ChatRoom.dir/Client.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\ChatRoom.dir

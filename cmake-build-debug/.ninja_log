@@ -1,3 +1,9 @@
 # ninja log v5
-2	172	7221316570932520	build.ninja	39fcda9af157a2e4
-1	930	7221315159350401	CMakeFiles/ChatRoom.dir/main.cpp.obj	9c6b89595cae22f2
+1	145	7221530545476733	build.ninja	39fcda9af157a2e4
+4	744	7221529581143997	CMakeFiles/ChatRoom.dir/main.cpp.obj	3b80f646aa00c8e3
+7	2009	7221529593783525	CMakeFiles/ChatRoom.dir/Client.cpp.obj	8f1d4e27ef43c8b0
+11	2138	7221529595069799	CMakeFiles/ChatRoom.dir/Server.cpp.obj	dd91c07cec5be053
+2138	2290	7221529596555448	ChatRoom.exe	d2f2dd7df0e64336
+3	821	7221530660249322	CMakeFiles/ChatRoom.dir/main.cpp.obj	9c6b89595cae22f2
+9	2142	7221530673457285	CMakeFiles/ChatRoom.dir/Client.cpp.obj	e2527f3bf62aed0d
+14	2309	7221530675116954	CMakeFiles/ChatRoom.dir/Server.cpp.obj	acc3d968fd344df0
