@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/deniz/.vscode/VSProjects/ChatRoom/ChatRoom/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -g -std=gnu++20 -o CMakeFiles\\ChatRoom.dir\\main.cpp.obj -c C:\\Users\\deniz\\.vscode\\VSProjects\\ChatRoom\\ChatRoom\\main.cpp",
+  "file": "C:\\Users\\deniz\\.vscode\\VSProjects\\ChatRoom\\ChatRoom\\main.cpp",
+  "output": "CMakeFiles\\ChatRoom.dir\\main.cpp.obj"
+}
+]
