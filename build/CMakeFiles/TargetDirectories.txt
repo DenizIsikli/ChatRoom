@@ -1,3 +1,0 @@
-C:/Users/deniz/.vscode/VSProjects/ChatRoom/ChatRoom/build/CMakeFiles/ChatRoom.dir
-C:/Users/deniz/.vscode/VSProjects/ChatRoom/ChatRoom/build/CMakeFiles/edit_cache.dir
-C:/Users/deniz/.vscode/VSProjects/ChatRoom/ChatRoom/build/CMakeFiles/rebuild_cache.dir
